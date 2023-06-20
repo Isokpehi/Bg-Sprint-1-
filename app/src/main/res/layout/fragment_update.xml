@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context=".fragments.recruitment.RecruitmentFragment">
+        tools:context=".fragments.recruitment.UpdateFragment">
 
         <TextView
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             app:helperTextTextColor="@color/red">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etFullname"
+                android:id="@+id/etUpdateFullname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
@@ -52,7 +52,7 @@
             app:startIconDrawable="@drawable/icon_phone">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPhone"
+                android:id="@+id/etUpdatePhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -69,7 +69,7 @@
 
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+                android:id="@+id/tvUpdateSex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -78,7 +78,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutDob"
+            android:id="@+id/updateLayoutDob"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             app:startIconDrawable="@drawable/icon_dob">
 
             <AutoCompleteTextView
-                android:id="@+id/etDob"
+                android:id="@+id/etUpdateDob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -106,7 +106,7 @@
             app:helperTextTextColor="@color/red">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etBvn"
+                android:id="@+id/etUpdateBvn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -124,7 +124,7 @@
             app:helperTextTextColor="@color/red">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNin"
+                android:id="@+id/etUpdateNin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -139,7 +139,7 @@
             app:helperTextTextColor="@color/red">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView2"
+                android:id="@+id/tvUpdateState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -155,7 +155,7 @@
             app:helperTextTextColor="@color/red">
 
             <AutoCompleteTextView
-                android:id="@+id/lga"
+                android:id="@+id/updateLga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -171,13 +171,8 @@
             app:helperText="Required*"
             app:helperTextTextColor="@color/red">
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/etHub"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="textPersonName" />-->
             <AutoCompleteTextView
-                android:id="@+id/etHub"
+                android:id="@+id/etUpdateHub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -194,7 +189,7 @@
             app:helperTextTextColor="@color/red">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView3"
+                android:id="@+id/tvUpdateId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -212,7 +207,7 @@
             app:helperTextTextColor="@color/red">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/govId"
+                android:id="@+id/etUpdateGovId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
@@ -221,7 +216,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/idImage"
+            android:id="@+id/idUpdateImage"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -231,7 +226,7 @@
             app:startIconDrawable="@drawable/ic_attach">
 
             <AutoCompleteTextView
-                android:id="@+id/tvImage"
+                android:id="@+id/tvUpdateImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />
@@ -239,19 +234,19 @@
 
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/ivUpdateImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_photo" />
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/yellow"
-            android:text="@string/register"
+            android:text="@string/update"
             android:textColor="@color/black"
             app:cornerRadius="12dp" />
 

@@ -6,32 +6,38 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.example.bgproject.R
-import com.example.bgproject.databinding.FragmentRecruitmentBinding
+import com.example.bgproject.databinding.FragmentUpdateBinding
 import com.example.bgproject.model.Tgl
 import com.example.bgproject.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 import java.util.Calendar
-import android.provider.MediaStore
 
 
-class RecruitmentFragment : Fragment() {
-
+class UpdateFragment : Fragment() {
     private lateinit var mUserViewModel: UserViewModel
-    private lateinit var binding: FragmentRecruitmentBinding
+    private lateinit var binding: FragmentUpdateBinding
+    private val args by navArgs<UpdateFragmentArgs>()
     private var datePickerDialog: DatePickerDialog? = null
     private val PICK_IMAGE_REQUEST = 1
     private var selectedState = ""
     private var selectedFileUri: Uri? = null
+
 
 
 
@@ -40,31 +46,45 @@ class RecruitmentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentRecruitmentBinding.inflate(inflater, container, false)
+        binding = FragmentUpdateBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Glide.with(this)
+            .load(args.currentTgl.govImage)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .apply(RequestOptions.circleCropTransform())
+            .into(binding.ivUpdateImage)
+
         mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
-        binding.btnRegister.setOnClickListener {
-            registerTgl()
-        }
+        binding.etUpdateFullname.setText(args.currentTgl.fullName)
+        binding.etUpdatePhone.setText(args.currentTgl.number)
+        binding.tvUpdateSex.setText(args.currentTgl.sex)
+        binding.etUpdateDob.setText(args.currentTgl.dob)
+        binding.etUpdateBvn.setText(args.currentTgl.bvn)
+        binding.etUpdateNin.setText(args.currentTgl.nin)
+        binding.tvUpdateState.setText(args.currentTgl.state)
+        binding.updateLga.setText(args.currentTgl.lga)
+        binding.etUpdateHub.setText(args.currentTgl.hub)
+        binding.tvUpdateId.setText(args.currentTgl.govType)
+        binding.etUpdateGovId.setText(args.currentTgl.govId)
 
         val sex = resources.getStringArray(R.array.Sex)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, sex)
-        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+        binding.tvUpdateSex.setAdapter(arrayAdapter)
 
         val state = resources.getStringArray(R.array.State)
         val arrayAdapterState = ArrayAdapter(requireContext(), R.layout.dropdown_item, state)
-        binding.autoCompleteTextView2.setAdapter(arrayAdapterState)
+        binding.tvUpdateState.setAdapter(arrayAdapterState)
 
-        val lga = binding.lga
-        binding.autoCompleteTextView2.setOnItemClickListener { parent, view, position, id ->
+        val lga = binding.updateLga
+        binding.tvUpdateState.setOnItemClickListener { parent, view, position, id ->
             selectedState = arrayAdapterState.getItem(position).toString()
-            binding.lga.setText("")
+            binding.updateLga.setText("")
             val lgaAdapter = ArrayAdapter(
                 requireContext(),
                 R.layout.dropdown_item,
@@ -76,39 +96,81 @@ class RecruitmentFragment : Fragment() {
 
         val idType = resources.getStringArray(R.array.idType)
         val arrayAdapterIdType = ArrayAdapter(requireContext(), R.layout.dropdown_item, idType)
-        binding.autoCompleteTextView3.setAdapter(arrayAdapterIdType)
+        binding.tvUpdateId.setAdapter(arrayAdapterIdType)
 
         val hub = resources.getStringArray(R.array.hub)
         val arrayAdapterHub = ArrayAdapter(requireContext(),R.layout.dropdown_item, hub)
-        binding.etHub.setAdapter(arrayAdapterHub)
+        binding.etUpdateHub.setAdapter(arrayAdapterHub)
 
-        binding.etDob.setOnClickListener {
+
+        binding.etUpdateDob.setOnClickListener {
             openDatePicker()
         }
 
 
-        binding.tvImage.setOnClickListener {
+        binding.btnUpdate.setOnClickListener {
+            updateTgl()
+        }
+
+        binding.tvUpdateImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
-
     }
 
-    private fun registerTgl() {
-        val fullName = binding.etFullname.text.toString()
-        val number = binding.etPhone.text.toString()
-        val sex = binding.autoCompleteTextView.text.toString()
-        val dob = binding.etDob.text.toString()
-        val bvn = binding.etBvn.text.toString()
-        val nin = binding.etNin.text.toString()
-        val state = binding.autoCompleteTextView2.text.toString()
-        val lga = binding.lga.text.toString()
-        val hub = binding.etHub.text.toString()
-        val govType = binding.autoCompleteTextView3.text.toString()
-        val govId = binding.govId.text.toString()
-        val govImage = selectedFileUri.toString()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            selectedFileUri = data.data
+            binding.ivUpdateImage.setImageURI(selectedFileUri)
+            // Use the image URI to load the selected image
+        }
+    }
 
+
+
+    private fun openDatePicker() {
+        val calendar = Calendar.getInstance()
+        val day = calendar[Calendar.DAY_OF_MONTH]
+        val month = calendar[Calendar.MONTH]
+        val year = calendar[Calendar.YEAR]
+
+        datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { View, year, monthOfYear, dayOfMonth ->
+                val month = monthOfYear + 1
+                var strMonth = "" + month
+                var strDayOfMonth = "" + dayOfMonth
+                if (month < 10) {
+                    strMonth = "0$strMonth"
+                }
+                if (dayOfMonth < 10) {
+                    strDayOfMonth = "0$strDayOfMonth"
+                }
+                val date = "$strDayOfMonth-$strMonth-$year"
+                binding.etUpdateDob.setText(date)
+            }, year, month, day
+        )
+        datePickerDialog!!.setTitle("Select Date")
+        datePickerDialog!!.show()
+    }
+
+
+
+    private fun updateTgl() {
+        val fullName = binding.etUpdateFullname.text.toString()
+        val number = binding.etUpdatePhone.text.toString()
+        val sex = binding.tvUpdateSex.text.toString()
+        val dob = binding.etUpdateDob.text.toString()
+        val bvn = binding.etUpdateBvn.text.toString()
+        val nin = binding.etUpdateNin.text.toString()
+        val state = binding.tvUpdateState.text.toString()
+        val lga = binding.updateLga.text.toString()
+        val hub = binding.etUpdateHub.text.toString()
+        val govType = binding.tvUpdateId.text.toString()
+        val govId = binding.etUpdateGovId.text.toString()
+        val govImage = selectedFileUri.toString()
 
         when {
             fullName.length < 5 -> Toast.makeText(
@@ -170,11 +232,10 @@ class RecruitmentFragment : Fragment() {
                 activity,
                 "Please select an Image", Toast.LENGTH_LONG
             ).show()
-
             else -> {
                 lifecycleScope.launch {
                     mUserViewModel.tgl = Tgl(
-                        generateTglId(),
+                        args.currentTgl.tglId,
                         fullName = fullName,
                         number = number,
                         sex = sex,
@@ -190,7 +251,6 @@ class RecruitmentFragment : Fragment() {
                         officerId = "",
                         testFlag = 0
                     )
-
                     val sharedPreferences =
                         requireActivity().getSharedPreferences(
                             "my_preferences",
@@ -198,18 +258,14 @@ class RecruitmentFragment : Fragment() {
                         )
                     mUserViewModel.tgl?.officerId =
                         sharedPreferences.getString("OFFICER_ID", "").toString()
-                    selectedFileUri?.let{
-                        mUserViewModel.registerTgl(mUserViewModel.tgl,requireContext(),it)
-                    }
-
-
+                    mUserViewModel.updateTgl()
                     Toast.makeText(
                         context,
-                        "User Successfully Registered",
+                        "Successfully Updated",
                         Toast.LENGTH_SHORT
                     ).show()
                     mUserViewModel.tgl = null
-                    findNavController().navigate(R.id.action_recruitmentFragment_to_tglsFragment)
+                    findNavController().navigate(R.id.action_updateFragment_to_tglsFragment)
                 }
             }
 
@@ -217,42 +273,7 @@ class RecruitmentFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-                selectedFileUri = data.data
-                binding.imageView3.setImageURI(selectedFileUri)
-                // Use the image URI to load the selected image
-            }
-        }
 
-
-
-    private fun openDatePicker() {
-        val calendar = Calendar.getInstance()
-        val day = calendar[Calendar.DAY_OF_MONTH]
-        val month = calendar[Calendar.MONTH]
-        val year = calendar[Calendar.YEAR]
-
-        datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { View, year, monthOfYear, dayOfMonth ->
-                val month = monthOfYear + 1
-                var strMonth = "" + month
-                var strDayOfMonth = "" + dayOfMonth
-                if (month < 10) {
-                    strMonth = "0$strMonth"
-                }
-                if (dayOfMonth < 10) {
-                    strDayOfMonth = "0$strDayOfMonth"
-                }
-                val date = "$strDayOfMonth-$strMonth-$year"
-                binding.etDob.setText(date)
-            }, year, month, day
-        )
-        datePickerDialog!!.setTitle("Select Date")
-        datePickerDialog!!.show()
-    }
 
     private fun getLGA(state: String): Array<String> {
         return when (state) {
@@ -296,13 +317,4 @@ class RecruitmentFragment : Fragment() {
         }
     }
 
-
-
-    fun generateTglId(): String {
-        return "tgl_${System.currentTimeMillis()}"
-    }
-
 }
-
-
-

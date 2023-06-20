@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_tglsFragment"
             app:destination="@id/tglsFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_conductTestFragment"
+            app:destination="@id/conductTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/recruitmentFragment"
@@ -60,5 +63,56 @@
         <action
             android:id="@+id/action_tglsFragment_to_recruitmentFragment"
             app:destination="@id/recruitmentFragment" />
+        <action
+            android:id="@+id/action_tglsFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.bgproject.fragments.recruitment.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_tglsFragment"
+            app:destination="@id/tglsFragment"
+            app:popUpTo="@id/homePageFragment" />
+        <argument
+            android:name="current tgl"
+            app:argType="com.example.bgproject.model.Tgl" />
+    </fragment>
+    <fragment
+        android:id="@+id/conductTestFragment"
+        android:name="com.example.bgproject.fragments.conductTest.ConductTestFragment"
+        android:label="fragment_conduct_test"
+        tools:layout="@layout/fragment_conduct_test" >
+        <action
+            android:id="@+id/action_conductTestFragment_to_questionsFragment"
+            app:destination="@id/questionsFragment" />
+        <action
+            android:id="@+id/action_conductTestFragment_to_resultFragment2"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionsFragment"
+        android:name="com.example.bgproject.fragments.question.QuestionsFragment"
+        android:label="fragment_questions"
+        tools:layout="@layout/fragment_questions" >
+        <action
+            android:id="@+id/action_questionsFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/conductTestFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="tglId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.bgproject.fragments.result.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="tglId"
+            app:argType="string" />
     </fragment>
 </navigation>

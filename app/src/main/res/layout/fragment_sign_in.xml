@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,11 +20,11 @@
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:text="@string/log_in"
         android:textColor="@color/black"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,15 +47,15 @@
                 android:id="@+id/etLoginEmail"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:autofillHints="emailAddress"
                 android:background="@drawable/edit_text_background"
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="12dp"
                 android:drawableTint="@color/yellow"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
                 android:hint="@string/email"
-                android:autofillHints="emailAddress"
                 android:inputType="textEmailAddress"
                 android:padding="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,13 +66,13 @@
                 android:id="@+id/etLoginPassword"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
                 android:background="@drawable/edit_text_background"
                 android:drawableStart="@drawable/ic_paasword"
                 android:drawablePadding="12dp"
                 android:drawableTint="@color/yellow"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="12dp"
@@ -123,5 +124,4 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

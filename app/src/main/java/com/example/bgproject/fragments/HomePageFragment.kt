@@ -32,6 +32,10 @@ class HomePageFragment : Fragment() {
         binding.btnRegisterTgl.setOnClickListener {
             findNavController().navigate(R.id.action_homePageFragment_to_tglsFragment)
         }
+
+        binding.btnConTest.setOnClickListener {
+            findNavController().navigate(R.id.action_homePageFragment_to_conductTestFragment)
+        }
     }
 
 

@@ -79,6 +79,7 @@ class SignUpFragment : Fragment() {
 
                         mUserViewModel.user =
                             User(officerId = generateOfficerId(), fullName, email, password)
+
                         mUserViewModel.registerUser()
                         Toast.makeText(
                             context,
@@ -95,18 +96,12 @@ class SignUpFragment : Fragment() {
                         ).show()
                     }
                 }
-//            } else {
-//                Toast.makeText(context, "Please fill in the fields", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-            }
-
-            binding.llLogIn.setOnClickListener {
-                findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
             }
         }
 
-
+        binding.llLogIn.setOnClickListener {
+            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+        }
     }
 
     private fun generateOfficerId(): String {

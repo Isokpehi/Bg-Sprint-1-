@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.bgproject.model.Response
+import com.example.bgproject.model.Result
 import com.example.bgproject.model.Tgl
 import com.example.bgproject.model.User
 
@@ -14,18 +16,19 @@ import com.example.bgproject.model.User
 @Database(
     entities = [
         User::class,
-        Tgl::class
+        Tgl::class,
+        Response::class,
     ],
-    version = 4, exportSchema = false
+    version = 5, exportSchema = false
 )
-@TypeConverters(EditableConverter::class)
+@TypeConverters(ResultTypeConverter::class)
 
 abstract class UserDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
 
     companion object {
-        private val migration1to2 = object : Migration(3, 4) {
+        private val migration1to2 = object : Migration(4, 5) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 // perform database migration
             }

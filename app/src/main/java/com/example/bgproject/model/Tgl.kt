@@ -1,10 +1,11 @@
 package com.example.bgproject.model
 
-import android.net.Uri
-import android.text.Editable
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity("tgl_table")
 data class Tgl(
 
@@ -12,16 +13,17 @@ data class Tgl(
     var tglId: String,
     var fullName: String,
     var number: String,
-    var sex: Editable,
-    var dob: Editable,
+    var sex: String,
+    var dob: String,
     var bvn: String,
     var nin: String,
-    var state: Editable,
+    var state: String,
     var lga: String,
     var hub: String,
-    var govType: Editable,
+    var govType: String,
     var govId: String,
     var govImage: String,
-    var officerId: String =""
+    var officerId: String ="",
+    var testFlag : Int,
 
-)
+): Parcelable

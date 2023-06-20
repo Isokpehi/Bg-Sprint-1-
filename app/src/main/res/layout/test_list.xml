@@ -53,45 +53,38 @@
                 android:text="TextView"
                 android:textSize="20sp"
                 android:textStyle="normal" />
-            <TextView
-                android:id="@+id/alreadyScheduled"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/already_scheduled_for_test"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/red"
-                android:visibility="invisible"/>
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <Button
-                android:id="@+id/btnEdit"
+                android:id="@+id/btnTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="0"
+                android:backgroundTint="@color/yellow"
+                android:text="@string/take_test"
+                android:textColor="@color/black"
+                app:cornerRadius="12dp"/>
+
+            <Button
+                android:id="@+id/btnResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 android:backgroundTint="@color/yellow"
-                android:text="@string/edit"
+                android:text="@string/result"
                 android:textColor="@color/black"
-                app:cornerRadius="12dp" />
+                app:cornerRadius="12dp"
+                android:visibility="gone"/>
 
-            <Button
-                android:id="@+id/btnSchedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/yellow"
-                android:text="@string/schedule"
-                android:textColor="@color/black"
-                app:cornerRadius="12dp" />
         </LinearLayout>
 
     </LinearLayout>
